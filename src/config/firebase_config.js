@@ -15,27 +15,19 @@ import {
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useEffect, useState } from "react";
-import { environment } from "./environment";
+// import { environment } from "./environment";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API,
-  authDomain: "sparkdeals-a9107.firebaseapp.com",
-  projectId: "sparkdeals-a9107",
-  storageBucket: "sparkdeals-a9107.appspot.com",
-  messagingSenderId: "697702771938",
-  appId: "1:697702771938:web:054736840b4fcb19af42bb",
-  measurementId: "G-RJ866G4KDV",
+  apiKey: process.env.REACT_APP_FIREBASE_CONFIG,
+  authDomain: "gallivanter-ae8ae.firebaseapp.com",
+  projectId: "gallivanter-ae8ae",
+  storageBucket: "gallivanter-ae8ae.appspot.com",
+  messagingSenderId: "543946443820",
+  appId: "1:543946443820:web:8c74cfeb2e3903b0b95589",
+  measurementId: "G-0RT2W5PK1R"
 };
 
-const firebaseTestConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_TEST,
-  authDomain: "sparkdealstest.firebaseapp.com",
-  projectId: "sparkdealstest",
-  storageBucket: "sparkdealstest.appspot.com",
-  messagingSenderId: "753257719948",
-  appId: "1:753257719948:web:df98018f7e900f503073a9",
-  measurementId: "G-F5HZN2FWCT"
-}
+
 // const appConfig = environment === "test" ? firebaseTestConfig : environment === "production" ? firebaseConfig : null;
 
 // if (!appConfig) {
@@ -81,41 +73,27 @@ export const handleFile = (image) => {
 };
 
 export const handleSubmit = async (
-  productName,
-  oldPrice,
-  expiryDate,
-  startDate,
-  newPrice,
-  quantity,
-  unit,
-  discount,
   image,
-  deliveredAt,
-  paidAt,
-  couponCode
+  name,
+  description,
+  date,
+  rating
 ) => {
   try {
     const imageURL = await handleFile(image);
     const collectionRef = collection(db, "deals");
     await addDoc(collectionRef, {
       imageURL,
-      productName,
-      oldPrice,
-      expiryDate,
-      startDate,
-      currentPrice: newPrice,
-      availableQTY: quantity,
-      measurement: unit,
-      discount,
-      createdAt: serverTimestamp(),
-      paidAt,
-      deliveredAt,
+      name,
+      description,
+      date,
+      rating
     });
 
 
     return true;
   } catch (error) {
-    
+
     return false;
   }
 };
@@ -139,7 +117,7 @@ export const createCouponHandler = async (
     });
     return true; // Return true after the document is added successfully
   } catch (error) {
-  
+
     return false; // Return false in case of an error
   }
 };
@@ -170,7 +148,7 @@ export const handleProcessingOrder = async (newOrder) => {
 
     return true;
   } catch (error) {
-    
+
     return false;
   }
 };
